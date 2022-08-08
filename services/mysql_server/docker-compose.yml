@@ -1,0 +1,26 @@
+version: "3.0"
+services:
+  mysql:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: mysql_sgcontab
+    restart: always
+    ports:
+      - 5306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "mysql_sgcontab"
+      MYSQL_USER: "admin"
+      MYSQL_PASSWORD: "mysql_sgcontab"
+    volumes:
+     - ./schemas:/var/lib/mysql:rw
+    networks:
+      mysql_sgcontab_netw:
+        aliases:
+          - mysql_sgcontab_host
+volumes:
+  schemas: {}
+networks:
+  mysql_sgcontab_netw:
+    name: mysql_sgcontab_netw
+    driver: bridge
